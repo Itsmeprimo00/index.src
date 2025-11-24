@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santa Rita College – Enrollment</title>
+<link rel="icon" type="image/png" href="logo.jpg" />
+<style>
+/* BODY */
+body { margin:0; padding:0; background-image:url('gg.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; background-attachment:fixed; font-family:Arial,sans-serif; color:white; animation:fadeIn 1.5s ease;}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+/* HEADER */
+header { background: rgba(0,0,0,0.6); padding:10px 20px; display:flex; align-items:center; justify-content:space-between; backdrop-filter: blur(6px); }
+.logo-box { display:flex; align-items:center; gap:15px; }
+.logo-box img { width:60px; height:60px; border-radius:8px; animation:zoomIn 1s ease; }
+@keyframes zoomIn { from{transform:scale(0.7); opacity:0;} to{transform:scale(1); opacity:1;} }
+
+/* SETTINGS */
+.settings-container { position:relative; display:inline-block; }
+.settings-icon { width:40px; height:40px; cursor:pointer; border-radius:50%; transition:.3s; }
+.settings-icon:hover { transform:scale(1.1); }
+.settings-dropdown { position:absolute; right:0; margin-top:5px; min-width:160px; background: rgba(0,0,0,0.85); border-radius:8px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.5); opacity:0; transform:translateY(-12px); pointer-events:none; transition:.35s ease; }
+.settings-dropdown.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+.settings-dropdown a { display:block; padding:12px; color:white; text-decoration:none; }
+.settings-dropdown a:hover { background:#4f46e5; }
+
+/* SUBTITLE */
+.subtitle { text-align:center; margin-top:20px; font-size:18px; text-shadow:1px 1px 3px #000; }
+
+/* GRID */
+.wrapper { max-width:1200px; margin:40px auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:25px; padding:20px; }
+
+/* CARD */
+.card { background: rgba(30,64,175,0.9); padding:25px; border-radius:15px; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); transition:.4s; }
+.card:hover { transform:scale(1.04); background: rgba(59,130,246,0.9); }
+
+/* REQUIREMENTS */
+.require-btn { background:#2563eb; padding:8px 15px; border-radius:8px; border:none; color:white; cursor:pointer; }
+.require-btn:hover { background:#1d4ed8; }
+.requirements { max-height:0; overflow:hidden; background: rgba(0,0,0,0.4); padding:0 10px; border-radius:8px; margin-top:10px; opacity:0; transform:scaleY(0.95); transition:.45s ease; }
+.requirements.show { max-height:500px; opacity:1; transform:scaleY(1); }
+.requirements ul { margin:10px 0; padding-left:20px; }
+
+/* ENROLL BUTTON */
+.enroll-btn { margin-top:15px; padding:12px 22px; background: linear-gradient(45deg,#9333ea,#6366f1); border:none; border-radius:10px; color:white; cursor:pointer; transition:.3s; }
+.enroll-btn:hover { transform:scale(1.07); }
+
+/* FORM */
+.enroll-form { max-height:0; opacity:0; overflow:hidden; background: rgba(30,64,175,0.95); border-radius:15px; margin-top:15px; padding:20px; transform:translateY(-15px) scale(.97); transition:max-height 0.55s ease, opacity 0.45s ease, transform 0.45s ease; }
+.enroll-form.show { max-height:1500px; opacity:1; transform:translateY(0) scale(1); }
+.enroll-form form { display:flex; flex-direction:column; gap:12px; }
+.enroll-form input, .enroll-form select { width:100%; padding:12px; font-size:14px; border-radius:12px; background: rgba(79,142,247,0.9); border:none; color:white; box-sizing:border-box; }
+
+/* FILE LABEL */
+.file-label { text-align:left; font-size:14px; display:block; margin-top:8px; }
+
+/* SUBMIT BUTTON */
+.btn { margin-top:5px; padding:14px; background: linear-gradient(135deg,#10b981,#3b82f6); border:none; color:white; border-radius:12px; cursor:pointer; }
+.btn:hover { transform:scale(1.05); }
+
+/* SUCCESS MESSAGE */
+.success-msg { margin-top:15px; padding:12px; background: rgba(16,185,129,0.95); border-radius:12px; display:none; text-align:center; }
+.success-msg.show { display:block; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo-box">
+        <img src="logo.jpg">
+        <div class="title">Santa Rita College Enrollment Portal</div>
+    </div>
+    <div class="settings-container">
+        <img src="settings.png" class="settings-icon">
+        <div class="settings-dropdown" id="settingsDrop">
+            <a href="change-password.html">Change Password</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </div>
+</header>
+
+<div class="subtitle">Your Future Starts Here – Choose Your Level</div>
+<div class="wrapper">
+
+<!-- ELEMENTARY -->
+<div class="card">
+    <h2>Elementary Enrollment</h2>
+    <p>Kinder to Grade 6</p>
+    <button class="require-btn" data-target="reqElem">Admission Requirements</button>
+    <div id="reqElem" class="requirements">
+        <ul>
+            <li>Birth Certificate</li>
+            <li>Form 138</li>
+            <li>2×2 Picture</li>
+        </ul>
+    </div>
+    <button class="enroll-btn" data-target="elemForm">Enroll Now</button>
+    <div id="elemForm" class="enroll-form">
+        <form>
+            <input name="fullName" placeholder="Full Name" required>
+            <input name="parentName" placeholder="Parent / Guardian" required>
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="contact" placeholder="Contact" required>
+            <input name="address" placeholder="Address" required>
+            <select name="level" required>
+                <option disabled selected>Select Grade Level</option>
+                <option>Kinder</option>
+                <option>Grade 1</option>
+                <option>Grade 2</option>
+                <option>Grade 3</option>
+                <option>Grade 4</option>
+                <option>Grade 5</option>
+                <option>Grade 6</option>
+            </select>
+            <input name="birthdate" type="date" required>
+            <input name="previousSchool" placeholder="Previous School">
+            <select name="status" required>
+                <option disabled selected>Enrollment Status</option>
+                <option>New</option>
+                <option>Returning</option>
+            </select>
+            <label class="file-label">Upload 2×2 Picture:</label>
+            <input type="file" name="photo" accept="image/*" required>
+            <button type="submit" class="btn">Submit Enrollment</button>
+        </form>
+        <div class="success-msg">Successfully Enrolled! Wait for the Email or Contact that you Fully Enrolled</div>
+    </div>
+</div>
+
+<!-- HIGH SCHOOL -->
+<div class="card">
+    <h2>High School Enrollment</h2>
+    <p>Junior & Senior High</p>
+    <button class="require-btn" data-target="reqHS">Admission Requirements</button>
+    <div id="reqHS" class="requirements">
+        <ul>
+            <li>Birth Certificate</li>
+            <li>Form 138</li>
+            <li>Good Moral</li>
+            <li>2×2 Picture</li>
+        </ul>
+    </div>
+    <button class="enroll-btn" data-target="hsForm">Enroll Now</button>
+    <div id="hsForm" class="enroll-form">
+        <form>
+            <input name="fullName" placeholder="Full Name" required>
+            <input name="parentName" placeholder="Parent / Guardian" required>
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="contact" placeholder="Contact" required>
+            <input name="address" placeholder="Address" required>
+            <select name="level" id="hsLevel" required>
+                <option disabled selected>Select Level</option>
+                <option value="junior">Junior High</option>
+                <option value="senior">Senior High</option>
+            </select>
+            <select name="strand" id="strandBox" style="display:none;">
+                <option disabled selected>Select Strand</option>
+                <option>STEM</option>
+                <option>ABM</option>
+                <option>HUMSS</option>
+                <option>GAS</option>
+            </select>
+            <input name="birthdate" type="date" required>
+            <input name="previousSchool" placeholder="Previous School">
+            <select name="cardStatus" required>
+                <option disabled selected>Report Card</option>
+                <option>With Report Card</option>
+                <option>No Report Card</option>
+            </select>
+            <label class="file-label">Upload 2×2 Picture:</label>
+            <input type="file" name="photo" accept="image/*" required>
+            <button type="submit" class="btn">Submit Enrollment</button>
+        </form>
+        <div class="success-msg">Successfully Enrolled! Wait for the Email or Contact that you Fully Enrolled</div>
+    </div>
+</div>
+
+<!-- COLLEGE -->
+<div class="card">
+    <h2>College Enrollment</h2>
+    <p>Degree Programs</p>
+    <button class="require-btn" data-target="reqCOL">Admission Requirements</button>
+    <div id="reqCOL" class="requirements">
+        <ul>
+            <li>Form 137 / TOR</li>
+            <li>Birth Certificate</li>
+            <li>2×2 Picture</li>
+        </ul>
+    </div>
+    <button class="enroll-btn" data-target="colForm">Enroll Now</button>
+    <div id="colForm" class="enroll-form">
+        <form>
+            <input name="fullName" placeholder="Full Name" required>
+            <input name="studentId" placeholder="Student ID (If Transferee)">
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="contact" placeholder="Contact" required>
+            <input name="address" placeholder="Address" required>
+            <select name="course" required>
+                <option disabled selected>Select Course</option>
+                <option>BS Information System</option>
+                <option>BS Business Administration</option>
+                <option>BS Education</option>
+            </select>
+            <input name="birthdate" type="date" required>
+            <input name="lastSchool" placeholder="Last School Attended">
+            <select name="yearLevel" required>
+                <option disabled selected>Select Year Level</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+            </select>
+            <label class="file-label">Upload 2×2 Picture:</label>
+            <input type="file" name="photo" accept="image/*" required>
+            <button type="submit" class="btn">Submit Enrollment</button>
+        </form>
+        <div class="success-msg">Successfully Enrolled! Wait for the Email or Contact that you Fully Enrolled</div>
+    </div>
+</div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // SETTINGS TOGGLE
+    document.querySelector(".settings-icon").addEventListener("click", () => {
+        document.getElementById("settingsDrop").classList.toggle("show");
+    });
+
+    // REQUIREMENTS TOGGLE
+    document.querySelectorAll(".require-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-target");
+            document.getElementById(target).classList.toggle("show");
+        });
+    });
+
+    // ENROLL FORM TOGGLE
+    document.querySelectorAll(".enroll-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-target");
+            const formContainer = document.getElementById(target);
+            document.querySelectorAll(".enroll-form").forEach(f => {
+                if(f.id !== target) f.classList.remove("show");
+            });
+            formContainer.classList.toggle("show");
+        });
+    });
+
+    // SENIOR HIGH STRAND TOGGLE
+    const hsLevel = document.getElementById("hsLevel");
+    if(hsLevel){
+        hsLevel.addEventListener("change", () => {
+            const strandBox = document.getElementById("strandBox");
+            strandBox.style.display = hsLevel.value === "senior" ? "block" : "none";
+        });
+    }
+
+    // SUBMIT ENROLLMENT FUNCTION
+    document.querySelectorAll(".enroll-form form").forEach(form => {
+        form.addEventListener("submit", event => {
+            event.preventDefault(); // Prevent default form submission
+
+            const container = form.parentElement;
+            const successMsg = container.querySelector(".success-msg");
+
+            let valid = true;
+            const formData = {};
+
+            // Collect input/select values
+            form.querySelectorAll("input, select").forEach(input => {
+                if(!input.name) return;
+
+                if(input.type === "file"){
+                    if(!input.files[0]){
+                        alert("Please upload your 2×2 picture.");
+                        valid = false;
+                        return;
+                    }
+                } else {
+                    formData[input.name] = input.value;
+                }
+            });
+
+            if(!valid) return;
+
+            // Handle photo upload
+            const photoInput = form.querySelector("input[type='file']");
+            const reader = new FileReader();
+            reader.onload = e => {
+                formData.photo = e.target.result;
+
+                // Save enrollment to localStorage
+                const enrolled = JSON.parse(localStorage.getItem("enrolledStudents") || "[]");
+                enrolled.push(formData);
+                localStorage.setItem("enrolledStudents", JSON.stringify(enrolled));
+
+                // Show success message
+                successMsg.classList.add("show");
+
+                // Automatically hide message and close form after 1.5 seconds
+                setTimeout(() => {
+                    successMsg.classList.remove("show");
+                    form.reset();
+                    container.classList.remove("show");
+
+                    // Hide HS strand box if present
+                    const strandBox = document.getElementById("strandBox");
+                    if(strandBox) strandBox.style.display = "none";
+                }, 1500);
+            };
+
+            reader.readAsDataURL(photoInput.files[0]);
+        });
+    });
+});
+</script>
+
+
+</body>
+</html>
